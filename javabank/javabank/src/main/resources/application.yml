@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/javabank
-    username: postgres
+    username: user
     password: 1234     # senha que você usou na conexão do DBeaver
 
   jpa:
@@ -24,4 +24,4 @@ springdoc:
     path: /swagger-ui.html
 
 server:
-  port: 8080
+  port: 8081

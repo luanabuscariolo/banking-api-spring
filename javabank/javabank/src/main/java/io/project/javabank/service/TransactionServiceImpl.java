@@ -93,6 +93,8 @@ public class TransactionServiceImpl implements TransactionalService {
                 .amount(tx.getAmount())
                 .description(tx.getDescription())
                 .createdAt(tx.getCreatedAt())
+                .accountId(tx.getAccount() != null ? tx.getAccount().getId() : null)
+                .targetAccountId(tx.getTargetAccount() != null ? tx.getTargetAccount().getId() : null)
                 .build();
     }
 }
