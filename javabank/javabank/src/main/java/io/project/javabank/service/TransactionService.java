@@ -5,7 +5,7 @@ import io.project.javabank.dto.response.TransactionResponse;
 
 import java.util.List;
 
-public interface TransactionalService {
+public interface TransactionService {
     TransactionResponse deposit(Long accountId, TransactionRequest request);
     TransactionResponse withdraw(Long accountId, TransactionRequest request);
     TransactionResponse transfer(Long sourceAccountId, TransactionRequest request);

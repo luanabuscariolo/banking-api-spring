@@ -3,6 +3,7 @@ package io.project.javabank.service;
 import io.project.javabank.account.Account;
 import io.project.javabank.dto.request.TransactionRequest;
 import io.project.javabank.dto.response.TransactionResponse;
+import io.project.javabank.mapper.TransactionMapper;
 import io.project.javabank.model.Transaction;
 import io.project.javabank.repository.AccountRepository;
 import io.project.javabank.repository.TransactionRepository;
@@ -14,10 +15,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TransactionServiceImpl implements TransactionalService {
+public class TransactionServiceImpl implements TransactionService {
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
+    private final TransactionMapper transactionMapper;
 
     @Override
     @Transactional
@@ -32,7 +34,7 @@ public class TransactionServiceImpl implements TransactionalService {
         tx.setDescription(request.getDescription());
 
         accountRepository.save(account);
-        return toResponse(transactionRepository.save(tx));
+        return transactionMapper.toResponse(transactionRepository.save(tx));
     }
 
     @Override
@@ -48,7 +50,7 @@ public class TransactionServiceImpl implements TransactionalService {
         tx.setDescription(request.getDescription());
 
         accountRepository.save(account);
-        return toResponse(transactionRepository.save(tx));
+        return transactionMapper.toResponse(transactionRepository.save(tx));
     }
 
     @Override
@@ -69,7 +71,7 @@ public class TransactionServiceImpl implements TransactionalService {
 
         accountRepository.save(source);
         accountRepository.save(target);
-        return toResponse(transactionRepository.save(tx));
+        return transactionMapper.toResponse(transactionRepository.save(tx));
     }
 
     @Override
@@ -77,24 +79,12 @@ public class TransactionServiceImpl implements TransactionalService {
         findAccount(accountId);
         return transactionRepository.findByAccountIdOrderByCreatedAtDesc(accountId)
                 .stream()
-                .map(this::toResponse)
+                .map(transactionMapper::toResponse)
                 .toList();
     }
 
     private Account findAccount(Long id) {
         return accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account not found with id: " + id));
-    }
-
-    private TransactionResponse toResponse(Transaction tx) {
-        return TransactionResponse.builder()
-                .id(tx.getId())
-                .type(tx.getType().name())
-                .amount(tx.getAmount())
-                .description(tx.getDescription())
-                .createdAt(tx.getCreatedAt())
-                .accountId(tx.getAccount() != null ? tx.getAccount().getId() : null)
-                .targetAccountId(tx.getTargetAccount() != null ? tx.getTargetAccount().getId() : null)
-                .build();
     }
 }
