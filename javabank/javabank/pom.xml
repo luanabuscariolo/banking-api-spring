@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.project</groupId>
-	<artifactId>javabank</artifactId>
+	<artifactId>spring-boot-banking-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>Spring Boot Banking API</name>
+	<description>REST API for banking operations built with Spring Boot and PostgreSQL</description>
 	<url/>
 	<licenses>
 		<license/>

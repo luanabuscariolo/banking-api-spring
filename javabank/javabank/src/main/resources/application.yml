@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/javabank
+    url: jdbc:postgresql://localhost:5432/banking_api
     username: user
     password: 1234     # senha que você usou na conexão do DBeaver
 
